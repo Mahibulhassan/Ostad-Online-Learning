@@ -32,7 +32,8 @@ class _MyHomePageState extends State<MyHomePage> {
     "Bread",
     "Milk",
     "Eggs",
-    "Mango"
+    "Mango",
+    "Sofeda"
   ];
 
   //code
