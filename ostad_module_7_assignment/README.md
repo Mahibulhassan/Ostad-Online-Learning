@@ -1,16 +1,6 @@
-# ostad_module_7_assignment
 
-A new Flutter project.
+![Screenshot_20230618-222914](https://github.com/Mahibulhassan/Ostad-Online-Learning/assets/47428111/0fa53db1-19e6-4bc3-ac29-ec0cd679d2c1)
+![Screenshot_20230618-222942](https://github.com/Mahibulhassan/Ostad-Online-Learning/assets/47428111/e2999156-bdbf-464a-9f73-a8ce0cca3c00)
+![Screenshot_20230618-222929](https://github.com/Mahibulhassan/Ostad-Online-Learning/assets/47428111/f24a2824-f999-4a24-8ce4-61bf4da061d4)
+![Screenshot_20230618-222954](https://github.com/Mahibulhassan/Ostad-Online-Learning/assets/47428111/82efe3e7-d7e3-4060-b20b-1a271ee414a6)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
