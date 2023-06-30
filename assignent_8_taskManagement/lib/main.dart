@@ -44,38 +44,41 @@ class _MyHomePageState extends State<MyHomePage> {
         title:const Center(child: Text('Task Management')),
       ),
       body: ListView.builder(
+
         itemCount: tasks.length,
         itemBuilder: (context,index){
           return Padding(
             padding: const EdgeInsets.all(12.0),
-            child: GestureDetector(
+            child: InkWell(
               onLongPress: (){
-              showModalBottomSheet(context: context, builder: (context){
-                return SizedBox(
-                  height: size.height*0.3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text("Task Details",style: TextStyle(fontSize: 18,color: Colors.black),),
-                        const SizedBox(height: 10,),
-                        Text("Titel : ${tasks[index].titel}"),
-                        const SizedBox(height: 10,),
-                        Text("Description : ${tasks[index].description}"),
-                        const SizedBox(height: 10,),
-                        Text(tasks[index].date),
-                        const SizedBox(height: 10,),
-                        ElevatedButton(onPressed: (){
-                          Navigator.pop(context);
-                          tasks.removeAt(index);
-                          setState(() {});
-                        }, child: const Text("Delet"))
-                      ],
+                Scaffold.of(context).showBottomSheet<void>((BuildContext context){
+                  return Container(
+                    height: size.height*0.3,
+                    width: size.width*1,
+                    color: Colors.white70,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text("Task Details",style: TextStyle(fontSize: 18,color: Colors.black),),
+                          const SizedBox(height: 10,),
+                          Text("Titel : ${tasks[index].titel}"),
+                          const SizedBox(height: 10,),
+                          Text("Description : ${tasks[index].description}"),
+                          const SizedBox(height: 10,),
+                          Text(tasks[index].date),
+                          const SizedBox(height: 10,),
+                          ElevatedButton(onPressed: (){
+                            Navigator.pop(context);
+                            tasks.removeAt(index);
+                            setState(() {});
+                          }, child: const Text("Delet"))
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              });
+                  );
+                });
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
