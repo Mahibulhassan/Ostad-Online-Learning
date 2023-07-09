@@ -2,13 +2,14 @@
 class ApiResponse {
 
   String condition;
-  double temp;
+  int temp;
   double feelLike;
-  double tempMin;
-  double tempMax;
+  int tempMin;
+  int tempMax;
   String Country;
   String location;
+  String icon;
 
-  ApiResponse(this.condition,this.Country,this.feelLike,this.location,this.temp,this.tempMax,this.tempMin);
+  ApiResponse(this.condition,this.Country,this.feelLike,this.location,this.temp,this.tempMax,this.tempMin,this.icon);
 
 }

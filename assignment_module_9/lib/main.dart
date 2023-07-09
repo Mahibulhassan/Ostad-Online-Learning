@@ -32,8 +32,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   //Variable
-  ApiResponse res = ApiResponse("","", 0.0, "", 0.0, 0.0, 0.0);
-  bool visi =false;
+  ApiResponse res = ApiResponse("","", 0, "", 0, 0, 0,"");
+  var hour;
+  var minute;
+  bool _visibility = false;
+  @override
+  void initState() {
+    getWeatherDetails();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,47 +56,34 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Container(
         width: size.width*1 ,
-        color: Colors.blue,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
+        color: Colors.deepPurple,
+        child: Visibility(
+          visible: _visibility,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SizedBox(height: size.height*.2,),
+                Text(res.location,style: TextStyle(fontSize: 20,color: Colors.white),),
+                Text("Updated : ${hour.toString()} : ${minute.toString()}",style: TextStyle(fontSize: 16,color: Colors.white70),),
+                SizedBox(height: size.height*.05,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(height: 100,width: 100,child: Image.network("https://api.openweathermap.org/img/w/${res.icon}",fit: BoxFit.fill,),),
+                    Text(res.temp.toString()+"°",style: TextStyle(fontSize: 30,color: Colors.white),),
+                    Column(
+                      children: [
+                        Text("Max :"+res.tempMax.toString()+"°",style: TextStyle(fontSize: 20,color: Colors.white70),),
+                        Text("Min :"+res.tempMin.toString()+"°",style: TextStyle(fontSize: 20,color: Colors.white70),),
+                      ],
+                    )
+                  ],
+                ),
+                Text(res.condition,style: TextStyle(fontSize: 20,color: Colors.white),)
+              ],
 
-              Visibility(
-                visible: visi,
-                  child:Column(children: [
-                Text("Current Location: "+res.location,style: const TextStyle(fontSize: 20,color: Colors.white),),
-                const SizedBox(height: 5,),
-                Text("Country: "+res.Country,style: const TextStyle(fontSize: 20,color: Colors.white),),
-                const SizedBox(height: 5,),
-                Text("Current Temparature Farenhite: "+res.temp.toString(),style: const TextStyle(fontSize: 20,color: Colors.white),),
-                const SizedBox(height: 5,),
-                Text("Min Temparature Farenhite: "+res.tempMin.toString(),style: const TextStyle(fontSize: 20,color: Colors.white),),
-                const SizedBox(height: 5,),
-                Text("Max Temparature Farenhite: "+res.tempMax.toString(),style: const TextStyle(fontSize: 20,color: Colors.white),),
-                const SizedBox(height: 5,),
-                Text("Weather Condition: "+res.condition,style: const TextStyle(fontSize: 20,color: Colors.white),),
-                const SizedBox(height: 5,),
-              ],) ),
-
-              MaterialButton(onPressed: ()async{
-                ProgressDialog pd = ProgressDialog(context: context);
-                pd.show(max: 100, msg: 'Searching Weather Data');
-                var data = await getGoogleLocation();
-                var response =await WeatherApi().getApiResponse(data.latitude, data.longitude);
-                setState(() {
-                  pd.close();
-                  res = response!;
-                  visi =true;
-                });
-              },
-                child: Text("Get Current Cordinate weather"),
-                color: Colors.white70,),
-              const SizedBox(height: 20,),
-
-              Text("Amar Semister final Exm choltese ... Tai Ui Design e SOmoy dite pari nai.. Asa kori Assignment ta Network call er opor silo.. Full Number diya Consder kora hobe. ",style: TextStyle(fontSize: 30,color: Colors.white),),
-            ],
-
+            ),
           ),
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
@@ -106,5 +100,16 @@ class _MyHomePageState extends State<MyHomePage> {
       return Future.error("Location Service denied");
     }
     return Geolocator.getCurrentPosition();
+  }
+
+  void getWeatherDetails() async {
+    var data = await getGoogleLocation();
+    var response =await WeatherApi().getApiResponse(data.latitude, data.longitude,context);
+    hour = DateTime.now().hour;
+    minute = DateTime.now().minute;
+    setState(() {
+      res = response!;
+      _visibility= true;
+    });
   }
 }
