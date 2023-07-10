@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'data_class.dart';
+import 'netCall.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,10 +30,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<ApiDataResponse> res=[];
+  List<ApiDataResponse> res =[];
+
   @override
   void initState() {
-    getApiData()
+    getApiData();
     super.initState();
   }
 
@@ -42,11 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Food Recipt"),
       ),
-      body: ListView.builder(itemCount: 5,itemBuilder:(context,index){
+      body: ListView.builder(itemCount: res.length
+        ,itemBuilder:(context,index){
         return ListTile(
           leading: Icon(Icons.production_quantity_limits),
-          title: Text(res.title),
-          subtitle: Text(res.des),
+          title: Text(res[index].title),
+          subtitle: Text(res[index].des),
         );
       },), // This trailing comma makes auto-formatting nicer for build methods.
     );
@@ -54,9 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 void getApiData()async{
     var data = await NetworkCallData().getApiResponse();
-
     setState(() {
-      res = data;
+      res = data!;
     });
   }
 }

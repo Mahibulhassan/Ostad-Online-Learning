@@ -9,6 +9,7 @@ import 'data_class.dart';
 class NetworkCallData {
 
   Future<List<ApiDataResponse>?> getApiResponse()async{
+    print("..............");
     try{
       List<ApiDataResponse> res=[];
       final String urlData = "https://raw.githubusercontent.com/Mahibulhassan/Project_data-Json-data/main/cat.json";
