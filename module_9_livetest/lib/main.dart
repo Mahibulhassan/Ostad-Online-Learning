@@ -30,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<ApiDataResponse> res =[];
+  ResponseDataClass res =ResponseDataClass() ;
 
   @override
   void initState() {
@@ -44,12 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Food Recipt"),
       ),
-      body: ListView.builder(itemCount: res.length
+      body: ListView.builder(itemCount: res!.recipes!.length
         ,itemBuilder:(context,index){
         return ListTile(
           leading: Icon(Icons.production_quantity_limits),
-          title: Text(res[index].title),
-          subtitle: Text(res[index].des),
+          title: Text(res!.recipes![index].title as String),
+          subtitle: Text(res!.recipes![index].description as String),
         );
       },),
       floatingActionButton: FloatingActionButton(
