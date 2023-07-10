@@ -51,7 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(res[index].title),
           subtitle: Text(res[index].des),
         );
-      },), // This trailing comma makes auto-formatting nicer for build methods.
+      },),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          getApiData();
+        },
+      ),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 

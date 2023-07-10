@@ -16,11 +16,12 @@ class NetworkCallData {
       var url = Uri.parse(urlData);
       var response = await http.get(url);
       var jsonData = jsonDecode(response.body);
-      print(jsonData);
+
+      print(jsonData["recipes"][0]["description"]);
 
       var data = jsonData["recipes"];
       for(int i =0 ;i<data.length;i++){
-        ApiDataResponse da = ApiDataResponse(data[i]["title"], data[i]["description"], data[i]["ingredients"]);
+        ApiDataResponse da = ApiDataResponse(data[i]["title"], data[i]["description"],);
         res.add(da);
       }
 
