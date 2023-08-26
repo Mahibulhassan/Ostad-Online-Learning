@@ -21,10 +21,10 @@ class _MatchDetailsScreenState extends State<MatchDetailsScreen> {
         stream: FirebaseFirestore.instance.collection("matchs").doc(widget.title).snapshots(),
         builder: (context,AsyncSnapshot<DocumentSnapshot<Object?>> snapShort){
           if (snapShort.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
           if (snapShort.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -39,9 +39,9 @@ class _MatchDetailsScreenState extends State<MatchDetailsScreen> {
                 child: Column(
                   children: [
                     Text(data!.get('titel'),style: const TextStyle(fontSize: 40),),
-                    Text(data!.get('score'),style: const TextStyle(fontSize: 30),),
-                    Text(data!.get('runTime'),style: const TextStyle(fontSize: 25),),
-                    Text(data!.get('fulTime'),style: const TextStyle(fontSize: 20),),
+                    Text(data.get('score'),style: const TextStyle(fontSize: 30),),
+                    Text(data.get('runTime'),style: const TextStyle(fontSize: 25),),
+                    Text(data.get('fulTime'),style: const TextStyle(fontSize: 20),),
                   ],
                 ),
               ),

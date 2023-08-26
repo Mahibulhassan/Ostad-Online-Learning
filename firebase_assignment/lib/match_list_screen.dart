@@ -19,16 +19,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Match List"),
+        title: const Text("Match List"),
       ),
       body:StreamBuilder<QuerySnapshot>(
         stream: _matchsStream,
         builder: (context , AsyncSnapshot<QuerySnapshot> snapshot){
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> MatchDetailsScreen(title: data['titel'])));
                 },
                 title: Text(data['titel'],style: const TextStyle(fontSize: 30),),
-                trailing: Icon(Icons.arrow_forward)
+                trailing: const Icon(Icons.arrow_forward)
               );
             }).toList(),
           );
