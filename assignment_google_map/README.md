@@ -1,16 +1,4 @@
 # assignment_google_map
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot_20230829-224738](https://github.com/Mahibulhassan/Ostad-Online-Learning/assets/47428111/68f1431a-ac1c-4a19-893b-1225847686bd)
+![Screenshot_20230829-224747](https://github.com/Mahibulhassan/Ostad-Online-Learning/assets/47428111/776a255c-1fff-43fa-94e0-d3a0d6b168c0)
