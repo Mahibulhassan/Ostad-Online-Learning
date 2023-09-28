@@ -1,10 +1,11 @@
+import 'package:ecommerce/presentation/state_holders/home_slider_controller.dart';
 import 'package:ecommerce/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:ecommerce/presentation/ui/screen/product_list_screen.dart';
 import 'package:ecommerce/presentation/ui/utils/image_assets.dart';
 import 'package:ecommerce/presentation/ui/widgets/catagory_card.dart';
 import 'package:ecommerce/presentation/ui/widgets/circular_icon_button.dart';
 import 'package:ecommerce/presentation/ui/widgets/home/home_slider.dart';
-import 'package:ecommerce/presentation/ui/widgets/home/select_header.dart';
+import 'package:ecommerce/presentation/ui/widgets/home/section_header.dart';
 import 'package:ecommerce/presentation/ui/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,7 +73,21 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 16,
               ),
-              const HomeSlider(),
+              GetBuilder<HomeSlidersController>(
+                  builder: (homeSliderController) {
+                    if (homeSliderController.getHomeSlidersInProgress) {
+                      return const SizedBox(
+                        height: 180.0,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    return HomeSlider(
+                      sliders: homeSliderController.sliderModel.data ?? [],
+                    );
+                  }
+              ),
               SectionHeader(
                 title: 'Categories',
                 onTap: () {

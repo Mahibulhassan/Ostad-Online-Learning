@@ -1,10 +1,13 @@
+import 'package:ecommerce/presentation/state_holders/home_slider_controller.dart';
 import 'package:ecommerce/presentation/state_holders/main_bottom_nav_controller.dart';
+import 'package:ecommerce/presentation/ui/screen/cartScreen.dart';
 import 'package:ecommerce/presentation/ui/screen/catagory_list_screen.dart';
 import 'package:ecommerce/presentation/ui/screen/home_screen.dart';
 import 'package:ecommerce/presentation/ui/screen/wish_list_screen.dart';
-import 'package:ecommerce/presentation/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../utils/app_colors.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
   const MainBottomNavScreen({super.key});
@@ -17,9 +20,18 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const CategoryListScreen(),
-    const HomeScreen(),
+    const CartScreen(),
     const WishListScreen(),
   ];
+
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.find<HomeSlidersController>().getHomeSliders();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+
 import 'package:ecommerce/application/state_holder_bindings.dart';
 import 'package:ecommerce/presentation/ui/screen/splash_screen.dart';
 import 'package:ecommerce/presentation/ui/utils/app_colors.dart';
@@ -10,7 +11,6 @@ class CraftBay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       initialBinding: StateHolderBinder(),
       theme: ThemeData(
