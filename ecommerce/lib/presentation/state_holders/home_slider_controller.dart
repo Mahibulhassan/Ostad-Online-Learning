@@ -1,8 +1,9 @@
 import 'package:ecommerce/data/models/network_response.dart';
 import 'package:ecommerce/data/models/slider_model.dart';
 import 'package:ecommerce/data/services/network_caller.dart';
-import 'package:ecommerce/data/utils/utils.dart';
 import 'package:get/get.dart';
+
+import '../../data/utils/utils.dart';
 
 class HomeSlidersController extends GetxController {
   bool _getHomeSlidersInProgress = false;
@@ -18,7 +19,7 @@ class HomeSlidersController extends GetxController {
   Future<bool> getHomeSliders() async {
     _getHomeSlidersInProgress = true;
     update();
-    final NetworkResponse response = await NetworkCaller().getRequest(Urls.getHomeSliders);
+    final NetworkResponse response = await NetworkCaller.getRequest(Urls.getHomeSliders);
     _getHomeSlidersInProgress = false;
     if (response.isSuccess) {
       _sliderModel = SliderModel.fromJson(response.responseJson ?? {});

@@ -1,8 +1,9 @@
-import 'package:ecommerce/data/models/catagory_model.dart';
 import 'package:ecommerce/data/models/network_response.dart';
 import 'package:ecommerce/data/services/network_caller.dart';
-import 'package:ecommerce/data/utils/utils.dart';
 import 'package:get/get.dart';
+
+import '../../data/models/catagory_model.dart';
+import '../../data/utils/utils.dart';
 
 class CategoryController extends GetxController {
   bool _getCategoriesInProgress = false;
@@ -19,7 +20,7 @@ class CategoryController extends GetxController {
     _getCategoriesInProgress = true;
     update();
     final NetworkResponse response =
-    await NetworkCaller().getRequest(Urls.getCategories);
+    await NetworkCaller.getRequest(Urls.getCategories);
     _getCategoriesInProgress = false;
     if (response.isSuccess) {
       _categoryModel = CategoryModel.fromJson(response.responseJson ?? {});

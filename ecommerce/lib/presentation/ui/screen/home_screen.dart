@@ -1,12 +1,8 @@
-import 'package:ecommerce/presentation/state_holders/cataory_controller.dart';
 import 'package:ecommerce/presentation/state_holders/home_slider_controller.dart';
 import 'package:ecommerce/presentation/state_holders/main_bottom_nav_controller.dart';
 import 'package:ecommerce/presentation/state_holders/new_product_controller.dart';
-import 'package:ecommerce/presentation/state_holders/poplar_product_coatroller.dart';
 import 'package:ecommerce/presentation/state_holders/special_product_controller.dart';
 import 'package:ecommerce/presentation/ui/screen/product_list_screen.dart';
-import 'package:ecommerce/presentation/ui/utils/image_assets.dart';
-import 'package:ecommerce/presentation/ui/widgets/catagory_card.dart';
 import 'package:ecommerce/presentation/ui/widgets/circular_icon_button.dart';
 import 'package:ecommerce/presentation/ui/widgets/home/home_slider.dart';
 import 'package:ecommerce/presentation/ui/widgets/home/section_header.dart';
@@ -14,6 +10,11 @@ import 'package:ecommerce/presentation/ui/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
+import '../../state_holders/cataory_controller.dart';
+import '../../state_holders/poplar_product_coatroller.dart';
+import '../utils/image_assets.dart';
+import '../widgets/catagory_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -115,7 +116,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return CategoryCard(
-                              categoryData: categoryController.categoryModel.data![index],
+                              categoryData: categoryController.categoryModel.data![index], onTap: () {
+                              Get.to(ProductListScreen(
+                                  categoryId: categoryController
+                                      .categoryModel.data![index].id!));
+                            },
                             );
                           });
                     }
@@ -127,21 +132,24 @@ class _HomeScreenState extends State<HomeScreen> {
               SectionHeader(
                 title: 'Popular',
                 onTap: () {
-                  Get.to(const ProductListScreen());
+                  Get.to(ProductListScreen(
+                    productModel:
+                    Get.find<PopularProductController>().popularProductModel,
+                  ));
                 },
               ),
               SizedBox(
                 height: 165,
                 child: GetBuilder<PopularProductController>(
                     builder: (productController) {
-                      if (productController!.getPopularProductsInProgress) {
+                      if (productController.getPopularProductsInProgress) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: productController?.popularProductModel.data?.length ?? 0,
+                        itemCount: productController.popularProductModel.data?.length ?? 0,
                         itemBuilder: (context, index) {
                           return ProductCard(
                             product:  productController.popularProductModel.data![index],
@@ -157,7 +165,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SectionHeader(
                 title: 'Special',
                 onTap: () {
-                  Get.to(const ProductListScreen());
+                  Get.to(ProductListScreen(
+                    productModel:
+                    Get.find<SpecialProductController>().specialProductModel,
+                  ));
                 },
               ),
               SizedBox(
@@ -187,7 +198,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SectionHeader(
                 title: 'New',
                 onTap: () {
-                  Get.to(const ProductListScreen());
+                  Get.to(ProductListScreen(
+                    productModel:
+                    Get.find<NewProductController>().newProductModel,
+                  ));
                 },
               ),
               SizedBox(

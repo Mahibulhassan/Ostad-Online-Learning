@@ -1,11 +1,13 @@
 import 'package:ecommerce/data/models/product_details.dart';
+import 'package:ecommerce/presentation/state_holders/add_to_cart_controller.dart';
 import 'package:ecommerce/presentation/state_holders/product_details_controller.dart';
-import 'package:ecommerce/presentation/ui/utils/app_colors.dart';
 import 'package:ecommerce/presentation/ui/widgets/custom_stepper.dart';
 import 'package:ecommerce/presentation/ui/widgets/home/product_image_slider.dart';
 import 'package:ecommerce/presentation/ui/widgets/size_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../utils/app_colors.dart';
+import '../utils/colour_extensions.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final int productId;
@@ -16,17 +18,6 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-
-  List<String> colors = [];
-
-  List<String> sizes = [
-    'S',
-    'M',
-    'L',
-    'XL',
-    'XXL',
-    'XXXL'
-  ];
 
   int _selectedColorIndex = 0;
   int _selectedSizeIndex = 0;
@@ -77,7 +68,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                     ),
                   ),
-                  cartToCartBottomContainer,
+                  cartToCartBottomContainer(
+                    productDetailsController.productDetails,
+                    productDetailsController.availableColors,
+                    productDetailsController.availableSizes,
+                  ),
                 ],
               ),
             );
@@ -180,7 +175,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   },
                   child: CircleAvatar(
                     radius: 18,
-                    // backgroundColor: HexColor.fromHex(colors[index]),
+                    backgroundColor: HexColor.fromHex(colors[index]),
                     child: _selectedColorIndex == index
                         ? const Icon(
                       Icons.done,
@@ -252,7 +247,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     );
   }
 
-  Container get cartToCartBottomContainer {
+  Container cartToCartBottomContainer(ProductDetails details, List<String> colors, List<String> sizes) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
@@ -283,7 +278,31 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           SizedBox(
             width: 120,
-            child: ElevatedButton(onPressed: () {}, child: const Text('Add to cart'),),)
+            child: GetBuilder<AddToCartController>(
+                builder: (addToCartController) {
+                  if (addToCartController.addToCartInProgress) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return ElevatedButton(
+                    onPressed: () async {
+                      final result = await addToCartController.addToCart(
+                        details.id!,
+                        colors[_selectedColorIndex].toString(),
+                        sizes[_selectedSizeIndex],
+                      );
+                      if (result) {
+                        Get.snackbar('Added to cart',
+                            'This product has been added to cart list',
+                            snackPosition: SnackPosition.BOTTOM);
+                      }
+                    },
+                    child: const Text('Add to cart'),
+                  );
+                }
+            ),
+          )
         ],
       ),
     );

@@ -1,8 +1,10 @@
-import 'package:ecommerce/presentation/state_holders/cataory_controller.dart';
-import 'package:ecommerce/presentation/state_holders/main_bottom_nav_controller.dart';
-import 'package:ecommerce/presentation/ui/widgets/catagory_card.dart';
+import 'package:ecommerce/presentation/ui/screen/product_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../state_holders/cataory_controller.dart';
+import '../../state_holders/main_bottom_nav_controller.dart';
+import '../widgets/catagory_card.dart';
 
 class CategoryListScreen extends StatefulWidget {
   const CategoryListScreen({super.key});
@@ -59,7 +61,13 @@ class _CategoryListScreenState extends State<CategoryListScreen> {
                 itemBuilder: (context, index) {
                   return FittedBox(
                     child: CategoryCard(
-                      categoryData: categoryController.categoryModel.data![index],
+                      categoryData:
+                      categoryController.categoryModel.data![index],
+                      onTap: () {
+                        Get.to(ProductListScreen(
+                            categoryId: categoryController
+                                .categoryModel.data![index].id!));
+                      },
                     ),
                   );
                 },
